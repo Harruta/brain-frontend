@@ -1,0 +1,14 @@
+@import "tailwindcss";
+@theme {
+    --font-display: "Satoshi", "sans-serif";
+    --breakpoint-3xl: 120rem;
+    --color-gray-100: #eeeeef;
+    --color-gray-200: #e6e9ed;
+    --color-gray-600: #95989c;
+    --color-purple-200: #d9ddee;
+    --color-purple-500: #949db;
+    --color-purple-600: #7164c0;
+    --ease-fluid: cubic-bezier(0.3, 0, 0, 1);
+    --ease-snappy: cubic-bezier(0.2, 0, 0, 1);
+    /* ... */
+  }
