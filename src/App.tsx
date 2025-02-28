@@ -6,7 +6,7 @@ import { PlusIcon } from "./icons/Pluesicon";
 import { ShareIcon } from "./icons/ShareIcon";
 
 function App() {
-  const [modelOpen, setModelOpen] = useState(true);
+  const [modelOpen, setModelOpen] = useState(false);
   return (
     <div className="p-4">
       <CreateContentModel open={modelOpen} onClose={() => setModelOpen(false)} />
