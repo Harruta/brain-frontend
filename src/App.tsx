@@ -5,9 +5,11 @@ import { ShareIcon } from "./icons/ShareIcon";
 
 function App() {
   return (
-    <div>
-      <Button variant="primary" text="Add content" startIcon={<PlusIcon/>} />
-      <Button variant="secondary" text="share" startIcon={<ShareIcon/>} />
+    <div className="p-4">
+      <div className="flex justify-end gap-4">
+       <Button variant="primary" text="Add content" startIcon={<PlusIcon/>} />
+       <Button variant="secondary" text="share" startIcon={<ShareIcon/>} />
+      </div>
       <div className="flex">
         <Card type="twitter" link="https://x.com/codebyharu/status/1895156519546822742"
          title="First tweet"/>
