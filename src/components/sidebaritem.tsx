@@ -5,7 +5,7 @@ export function SidebarItem({ text, icon}: {
     icon: ReactElement;
 }) {
     return (
-        <div className="flex items-center gap-4 p-4">
+        <div className="flex items-center gap-4 p-4 text-gray-500">
             {icon}
             {text}
         </div>
