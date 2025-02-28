@@ -4,11 +4,14 @@ import { CreateContentModel } from "./components/CreateContentModel";
 import { Card } from "./components/card";
 import { PlusIcon } from "./icons/Pluesicon";
 import { ShareIcon } from "./icons/ShareIcon";
+import { Sidebar } from "./components/sidebar";
 
 function App() {
   const [modelOpen, setModelOpen] = useState(false);
   return (
-    <div className="p-4">
+    <div>
+      <Sidebar />
+      <div className="p-4 ml-72 min-h-screen bg-gray-100 broder-2">
       <CreateContentModel open={modelOpen} onClose={() => setModelOpen(false)} />
 
       <div className="flex justify-end gap-4">
@@ -21,6 +24,7 @@ function App() {
         <Card type="youtube" link="https://www.youtube.com/watch?v=JGwWNGJdvx8"
         title="First vid"/>
       </div>
+    </div>
     </div>
   );
 }
