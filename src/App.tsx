@@ -12,7 +12,7 @@ function App() {
       <CreateContentModel open={modelOpen} onClose={() => setModelOpen(false)} />
 
       <div className="flex justify-end gap-4">
-       <Button variant="primary" text="Add content" startIcon={<PlusIcon/>} />
+      <Button onClick={() => setModelOpen(true)} variant="primary" text="Add content" startIcon={<PlusIcon />} />
        <Button variant="secondary" text="share" startIcon={<ShareIcon/>} />
       </div>
       <div className="flex">
