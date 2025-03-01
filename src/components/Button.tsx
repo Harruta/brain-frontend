@@ -3,8 +3,9 @@ import { ReactElement } from "react";
 interface ButtonProps {
     variant: "primary" | "secondary";
     text: string;
-    startIcon: ReactElement;
+    startIcon?: ReactElement;
     onClick?: () => void;
+    fullWidth?: boolean;
 }
 
 const variantClasses = {
@@ -14,10 +15,13 @@ const variantClasses = {
 
 const defaultStyles = "px-4 py-2 rounded-md font-light flex items-center space-x-2";
 
-export function Button({ variant, text, startIcon, onClick }: ButtonProps) {
+export function Button({ variant, text, startIcon, onClick, fullWidth }: ButtonProps) {
     return (
-        <button onClick={onClick} className={`${variantClasses[variant]} ${defaultStyles}`}>
-            {startIcon}
+        <button 
+            onClick={onClick} 
+            className={`${variantClasses[variant]} ${defaultStyles} ${fullWidth ? 'w-full flex justify-center items-center' : ""}`}
+        >
+            {startIcon && <span>{startIcon}</span>}
             <span>{text}</span>
         </button>
     );
