@@ -1,10 +1,11 @@
 
 import Dashboard from './Dashboard'
+import { Signup } from './Signup'
 
 const App = () => {
   return (
     <div>
-      <Dashboard/>
+      <Signup/>
     </div>
   )
 }
