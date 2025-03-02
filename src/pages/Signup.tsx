@@ -30,7 +30,7 @@ export function Signup() {
             console.error("Signup error:", error);
             alert("Signup failed!");
         } finally {
-            setLoading(false); // Reset loading state after request
+            setLoading(false);
         }
     }
 
@@ -41,7 +41,7 @@ export function Signup() {
                 <Input ref={passwordRef} placeholder="Password" />
                 <div className="flex justify-center mt-4">
                     <Button 
-                        loading={loading}  // Pass the loading state
+                        loading={loading} 
                         variant="primary" 
                         text="Signup"
                         fullWidth 
