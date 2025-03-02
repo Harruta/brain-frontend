@@ -1,5 +1,5 @@
 import axios from "axios";
-import { useRef } from "react";
+import { useState, useRef } from "react";
 import { Input } from "../components/Input";
 import { Button } from "../components/Button";
 import { BACKEND_URL } from "../Config";
@@ -7,14 +7,31 @@ import { BACKEND_URL } from "../Config";
 export function Signup() {
     const usernameRef = useRef<HTMLInputElement | null>(null);
     const passwordRef = useRef<HTMLInputElement | null>(null);
+    const [loading, setLoading] = useState(false); // Track loading state
 
     async function signup() {
-        const username = usernameRef.current?.value;
-        const password = passwordRef.current?.value;
-        axios.post(BACKEND_URL + "/api/v1/signup", {
-            username,
-            password
-        })
+        if (loading) return; // Prevent duplicate requests
+        setLoading(true);
+
+        try {
+            const username = usernameRef.current?.value;
+            const password = passwordRef.current?.value;
+
+            if (!username || !password) {
+                alert("Please fill in both fields");
+                setLoading(false);
+                return;
+            }
+
+            const response = await axios.post(`${BACKEND_URL}/api/v1/signup`, { username, password });
+            console.log(response.data);
+            alert("Signup successful!");
+        } catch (error) {
+            console.error("Signup error:", error);
+            alert("Signup failed!");
+        } finally {
+            setLoading(false); // Reset loading state after request
+        }
     }
 
     return (
@@ -23,7 +40,13 @@ export function Signup() {
                 <Input ref={usernameRef} placeholder="Username" />
                 <Input ref={passwordRef} placeholder="Password" />
                 <div className="flex justify-center mt-4">
-                    <Button loading={false} variant="primary" text="Signup" fullWidth />
+                    <Button 
+                        loading={loading}  // Pass the loading state
+                        variant="primary" 
+                        text="Signup"
+                        fullWidth 
+                        onClick={signup}
+                    />
                 </div>
             </div>
         </div>
