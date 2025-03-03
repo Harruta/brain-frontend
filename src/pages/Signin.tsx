@@ -3,14 +3,16 @@ import { Input } from "../components/Input";
 import { BACKEND_URL } from "../Config";
 import { Button } from "../components/Button";
 import axios from "axios";
+import { useNavigate } from "react-router-dom";
 
 export function Signin() {
     const usernameRef = useRef<HTMLInputElement | null>(null);
     const passwordRef = useRef<HTMLInputElement | null>(null);
-    const [loading, setLoading] = useState(false); // Track loading state
+    const [loading, setLoading] = useState(false); 
+    const navigate = useNavigate();
 
     async function signin() {
-        if (loading) return; // Prevent duplicate requests
+        if (loading) return; 
         setLoading(true);
 
         try {
@@ -27,7 +29,9 @@ export function Signin() {
 
             if (response.data.token) {
                 localStorage.setItem("jwt", response.data.token);
-                alert("Signin successful!");
+                navigate("/dashboard");
+                
+                
             } else {
                 alert("Invalid credentials. Please try again.");
             }

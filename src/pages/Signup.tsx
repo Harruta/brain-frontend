@@ -3,11 +3,13 @@ import { useState, useRef } from "react";
 import { Input } from "../components/Input";
 import { Button } from "../components/Button";
 import { BACKEND_URL } from "../Config";
+import { useNavigate } from "react-router-dom";
 
 export function Signup() {
     const usernameRef = useRef<HTMLInputElement | null>(null);
     const passwordRef = useRef<HTMLInputElement | null>(null);
     const [loading, setLoading] = useState(false); // Track loading state
+    const navigate = useNavigate();
 
     async function signup() {
         if (loading) return; // Prevent duplicate requests
@@ -25,6 +27,7 @@ export function Signup() {
 
             const response = await axios.post(`${BACKEND_URL}/api/v1/signup`, { username, password });
             console.log(response.data);
+            navigate("/signin");
             alert("Signup successful!");
         } catch (error) {
             console.error("Signup error:", error);
