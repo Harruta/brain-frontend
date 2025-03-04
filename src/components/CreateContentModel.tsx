@@ -1,7 +1,23 @@
 import { CrossIcon } from "../icons/Crossicon";
+import { useRef, useState } from "react";
 import { Button } from "./Button";
 
+enum ContentType {
+    Twitter = "twitter",
+    Youtube = "youtube",
+}
+
 export function CreateContentModel({ open, onClose }) {
+    const titleRef = useRef<HTMLInputElement>(null);
+    const linkRef = useRef<HTMLInputElement>(null);
+    const [type, setType] = useState(ContentType.Twitter); // Move useState outside addContent()
+
+    function addContent() {
+        const title = titleRef.current?.value;
+        const link = linkRef.current?.value;
+        console.log("Content Added:", { title, link, type });
+    }
+
     return (
         <div>
             {open && (
@@ -10,17 +26,22 @@ export function CreateContentModel({ open, onClose }) {
                         <span className="bg-white opacity-100 p-4 rounded">
                             <div className="flex justify-end">
                                 <div onClick={onClose} className="cursor-pointer">
-                                    <CrossIcon/>
+                                    <CrossIcon />
                                 </div>
                             </div>
                             <div>
-                                <Input placeholder={"Title"}/>
-                                <Input placeholder={"link"}/>
-
+                                <Input ref={titleRef} placeholder="Title" />
+                                <Input ref={linkRef} placeholder="Link" />
+                            </div>
+                            <div>
+                                <select value={type} onChange={(e) => setType(e.target.value as ContentType)}>
+                                    <option value={ContentType.Twitter}>Twitter</option>
+                                    <option value={ContentType.Youtube}>YouTube</option>
+                                </select>
                             </div>
                             <div className="flex justify-center">
-                             <Button variant="primary" text="Submit"/>
-                            </div> 
+                                <Button onClick={addContent} variant="primary" text="Submit" />
+                            </div>
                         </span>
                     </div>
                 </div>
@@ -29,10 +50,12 @@ export function CreateContentModel({ open, onClose }) {
     );
 }
 
-function Input({ onChange, placeholder }: { onChange: () => void }) {
+const Input = ({ placeholder }, ref) => {
     return (
         <div>
-            <input placeholder={placeholder} type="text" className="px-4 py-2 border rounded m-2" onChange={onChange} />
+            <input ref={ref} placeholder={placeholder} type="text" className="px-4 py-2 border rounded m-2" />
         </div>
     );
-}
+};
+
+export default React.forwardRef(Input);
