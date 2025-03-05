@@ -1,6 +1,8 @@
 import { CrossIcon } from "../icons/Crossicon";
 import { useRef, useState } from "react";
 import { Button } from "./Button";
+import axios from "axios";
+import { BACKEND_URL } from "../Config";
 import React from "react";
 
 enum ContentType {
@@ -13,10 +15,27 @@ export function CreateContentModel({ open, onClose }) {
     const linkRef = useRef<HTMLInputElement>(null);
     const [type, setType] = useState<ContentType>(ContentType.Twitter);
 
-    function addContent() {
+    async function addContent() {
         const title = titleRef.current?.value;
         const link = linkRef.current?.value;
-        console.log("Content Added:", { title, link, type });
+    
+        try {
+            await axios.post(`${BACKEND_URL}/api/v1/content`, 
+                {
+                    title,
+                    link,
+                    type,
+                },
+                {
+                    headers: {
+                        Authorization: `Bearer ${localStorage.getItem("token")}`,
+                    },
+                }
+            );
+            console.log("Content added successfully!");
+        } catch (error) {
+            console.error("Error adding content:", error);
+        }
     }
 
     return (
