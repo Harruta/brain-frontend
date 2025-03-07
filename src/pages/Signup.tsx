@@ -8,7 +8,7 @@ import { useNavigate } from "react-router-dom";
 export function Signup() {
     const usernameRef = useRef<HTMLInputElement | null>(null);
     const passwordRef = useRef<HTMLInputElement | null>(null);
-    const [loading, setLoading] = useState(false); // Track loading state
+    const [loading, setLoading] = useState(false); 
     const navigate = useNavigate();
 
     async function signup() {

@@ -9,7 +9,7 @@ import { useContent } from "../hooks/useContent";
 
 function Dashboard() {
   const [modelOpen, setModelOpen] = useState(false);
-  const contents = useContent(); // Moved hook inside component
+  const contents = useContent(); 
 
   return (
     <div>
