@@ -28,7 +28,7 @@ export function CreateContentModel({ open, onClose }) {
                 },
                 {
                     headers: {
-                        Authorization: localStorage.getItem("jwt"),
+                        Authorization: localStorage.getItem("token"),
                     },
                 }
             );

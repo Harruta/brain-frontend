@@ -26,7 +26,6 @@ function Dashboard() {
           {contents.map(({ type, link, title }, index) => (
             <Card key={index} type={type} link={link} title={title} />
           ))}
-          <Card type="youtube" link="https://www.youtube.com/watch?v=JGwWNGJdvx8" title="First vid" />
         </div>
       </div>
     </div>
