@@ -32,6 +32,7 @@ export function CreateContentModel({ open, onClose }) {
                     },
                 }
             );
+            onClose();
             console.log("Content added successfully!");
         } catch (error) {
             console.error("Error adding content:", error);

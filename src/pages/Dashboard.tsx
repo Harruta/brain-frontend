@@ -1,5 +1,5 @@
 import { Button } from "../components/Button";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { CreateContentModel } from "../components/CreateContentModel";
 import { Card } from "../components/card";
 import { PlusIcon } from "../icons/Pluesicon";
@@ -9,7 +9,12 @@ import { useContent } from "../hooks/useContent";
 
 function Dashboard() {
   const [modelOpen, setModelOpen] = useState(false);
-  const contents = useContent(); 
+  const {contents, refresh} = useContent(); 
+
+  useEffect(() => {
+    refresh();
+  },[modelOpen]);
+
 
   return (
     <div>
