@@ -19,7 +19,7 @@ function Dashboard() {
   return (
     <div>
       <Sidebar />
-      <div className="p-4 ml-72 min-h-screen bg-gray-100 border-2"> {/* Fixed className typo */}
+      <div className="p-4 ml-72 min-h-screen bg-gray-100 border-2"> 
         <CreateContentModel open={modelOpen} onClose={() => setModelOpen(false)} />
 
         <div className="flex justify-end gap-4">
@@ -27,7 +27,7 @@ function Dashboard() {
           <Button variant="secondary" text="Share" startIcon={<ShareIcon />} />
         </div>
 
-        <div className="flex">
+        <div className="flex gap-4 flex-wrap">
           {contents.map(({ type, link, title }, index) => (
             <Card key={index} type={type} link={link} title={title} />
           ))}
