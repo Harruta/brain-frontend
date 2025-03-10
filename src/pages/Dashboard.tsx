@@ -6,6 +6,8 @@ import { PlusIcon } from "../icons/Pluesicon";
 import { ShareIcon } from "../icons/ShareIcon";
 import { Sidebar } from "../components/sidebar";
 import { useContent } from "../hooks/useContent";
+import axios from "axios";
+import { BACKEND_URL } from "../Config";
 
 function Dashboard() {
   const [modelOpen, setModelOpen] = useState(false);
@@ -24,7 +26,18 @@ function Dashboard() {
 
         <div className="flex justify-end gap-4">
           <Button onClick={() => setModelOpen(true)} variant="primary" text="Add content" startIcon={<PlusIcon />} />
-          <Button variant="secondary" text="Share" startIcon={<ShareIcon />} />
+          <Button onClick={async ()=>{
+            const response = await axios.post(`${BACKEND_URL}/api/v1/brain/share`, {
+              share: true,
+            },{
+              headers: {
+                "Authorization": localStorage.getItem("token")
+              }
+            });
+            const shareUrl = `http://http://127.0.0.1:5173/share/${response.data.hash}`;
+            alert(shareUrl);
+          }}
+          variant="secondary" text="Share" startIcon={<ShareIcon />} />
         </div>
 
         <div className="flex gap-4 flex-wrap">
