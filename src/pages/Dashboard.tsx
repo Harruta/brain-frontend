@@ -34,7 +34,7 @@ function Dashboard() {
                 "Authorization": localStorage.getItem("token")
               }
             });
-            const shareUrl = `http://http://127.0.0.1:5173/share/${response.data.hash}`;
+            const shareUrl = `http://127.0.0.1:5173/share/${response.data.hash}`;
             alert(shareUrl);
           }}
           variant="secondary" text="Share" startIcon={<ShareIcon />} />
