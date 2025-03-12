@@ -1,13 +1,16 @@
 import { ShareIcon } from "../icons/ShareIcon";
+import { DeleteIcon } from "../icons/DeleteIcon";
 import { useEffect } from "react";
 
 interface CardProps {
     title: string;
     link: string;
-    type: "twitter" | "youtube"; 
+    type: "twitter" | "youtube";
+    contentId: string;
+    onDelete: (contentId: string) => void;
 }
 
-export function Card({ title, link, type }: CardProps) {
+export function Card({ title, link, type, contentId, onDelete }: CardProps) {
     useEffect(() => {
         if (type === "twitter") {
             const script = document.createElement("script");
@@ -32,8 +35,8 @@ export function Card({ title, link, type }: CardProps) {
                             <ShareIcon />
                         </a>
                     </div>
-                    <div className="text-gray-500">
-                        <ShareIcon />
+                    <div className="text-gray-500 hover:text-red-500 cursor-pointer">
+                        <DeleteIcon contentId={contentId} onDelete={onDelete} />
                     </div>
                 </div>
             </div>
