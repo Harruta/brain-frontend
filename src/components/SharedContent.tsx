@@ -1,26 +1,36 @@
-import { useParams } from 'react-router-dom';
-import { BACKEND_URL } from '../Config';
-import { useEffect, useState } from 'react';
+import { useEffect, useState } from "react";
+import { useParams } from "react-router-dom";
+import { BACKEND_URL } from "../Config";
 
 const SharedContent = () => {
-  const { sharelink } = useParams<{ sharelink: string }>();
-  const [content, setContent] = useState<string | null>(null);
-  const [loading, setLoading] = useState<boolean>(true);
+  const { sharelink } = useParams();
+  const [content, setContent] = useState<any[]>([]);
+  const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
-    // Simulating fetching shared content from an API
     const fetchContent = async () => {
       try {
-        // Replace with actual API request
-        const response = await fetch(`${BACKEND_URL}/api/v1/share/${sharelink}`);
-        if (!response.ok) {
-          throw new Error('Content not found');
+        if (!sharelink) {
+          setError("Invalid share link");
+          setLoading(false);
+          return;
         }
-        const data = await response.text();
-        setContent(data);
+
+        const response = await fetch(`${BACKEND_URL}/api/v1/brain/${sharelink}`);
+        if (!response.ok) {
+          const errorData = await response.json();
+          throw new Error(errorData.message || `Error: ${response.status}`);
+        }
+
+        const data = await response.json();
+        if (!data.content) {
+          throw new Error("No content received from server");
+        }
+        setContent(data.content);
       } catch (err) {
-        setError((err as Error).message);
+        console.error("Fetch error:", err);
+        setError(err instanceof Error ? err.message : "An error occurred while fetching content");
       } finally {
         setLoading(false);
       }
@@ -29,13 +39,19 @@ const SharedContent = () => {
     fetchContent();
   }, [sharelink]);
 
-  if (loading) return <p>Loading...</p>;
-  if (error) return <p>Error: {error}</p>;
+  if (loading) return <div>Loading...</div>;
+  if (error) return <div>{error}</div>;
 
   return (
-    <div>
-      <h1>Shared Content</h1>
-      <p>{content}</p>
+    <div className="p-4">
+      <h1 className="text-xl font-bold mb-4">Shared Content</h1>
+      <div className="whitespace-pre-wrap font-mono bg-gray-100 p-4 rounded-lg">
+        {Array.isArray(content) && content.length > 0 ? (
+          JSON.stringify(content, null, 2)
+        ) : (
+          <div>No content found</div>
+        )}
+      </div>
     </div>
   );
 };

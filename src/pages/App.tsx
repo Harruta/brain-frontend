@@ -11,7 +11,7 @@ const App = () => {
         <Route path="/signin" element={<Signin />} />
         <Route path="/signup" element={<Signup />} />
         <Route path="/dashboard" element={<Dashboard />} />
-        <Route path="/shared/:sharelink" element={<SharedContent />} />
+        <Route path="/share/:sharelink" element={<SharedContent />} />
       </Routes>
     </BrowserRouter>
   );
