@@ -1,10 +1,11 @@
+import { Card } from "./card";
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { BACKEND_URL } from "../Config";
 
 const SharedContent = () => {
   const { sharelink } = useParams();
-  const [content, setContent] = useState<any[]>([]);
+  const [content, setContent] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
 
@@ -43,14 +44,12 @@ const SharedContent = () => {
   if (error) return <div>{error}</div>;
 
   return (
-    <div className="p-4">
+    <div className="p-4 min-h-screen bg-gray-100">
       <h1 className="text-xl font-bold mb-4">Shared Content</h1>
-      <div className="whitespace-pre-wrap font-mono bg-gray-100 p-4 rounded-lg">
-        {Array.isArray(content) && content.length > 0 ? (
-          JSON.stringify(content, null, 2)
-        ) : (
-          <div>No content found</div>
-        )}
+      <div className="flex gap-4 flex-wrap">
+        {content.map(({ type, link, title }, index) => (
+          <Card key={index} type={type} link={link} title={title} />
+        ))}
       </div>
     </div>
   );
