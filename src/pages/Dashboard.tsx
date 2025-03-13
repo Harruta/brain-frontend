@@ -9,13 +9,13 @@ import { useContent } from "../hooks/useContent";
 import axios from "axios";
 import { BACKEND_URL } from "../Config";
 
-
+// Define the content type based on your data structure
 interface Content {
   _id: string;
   type: string;
   link: string;
   title: string;
-
+  // ...other fields if needed
 }
 
 const Dashboard: React.FC = () => {
@@ -33,7 +33,7 @@ const Dashboard: React.FC = () => {
 
   // Filter the contents based on type (if a filter is set)
   const filteredContents: Content[] = filter
-    ? contents.filter((content: Content) => 
+    ? contents.filter((content: Content) =>
         content.type.toLowerCase() === filter.toLowerCase()
       )
     : contents;
@@ -44,18 +44,18 @@ const Dashboard: React.FC = () => {
     <div className="flex">
       {/* Sidebar is fixed; it sends filter changes to Dashboard */}
       <Sidebar onFilterChange={setFilter} />
-      
-      <div className="p-4 ml-72 min-h-screen bg-gray-100 border-2">
+
+      <div className="p-4 ml-72 min-h-screen w-[calc(100vw-18rem)] bg-gray-100 border-2">
         <CreateContentModel open={modelOpen} onClose={() => setModelOpen(false)} />
 
         <div className="flex justify-end gap-4">
-          <Button 
-            onClick={() => setModelOpen(true)} 
-            variant="primary" 
-            text="Add content" 
-            startIcon={<PlusIcon />} 
+          <Button
+            onClick={() => setModelOpen(true)}
+            variant="primary"
+            text="Add content"
+            startIcon={<PlusIcon />}
           />
-          <Button 
+          <Button
             onClick={async () => {
               try {
                 const response = await axios.post<{ hash: string }>(
@@ -70,21 +70,21 @@ const Dashboard: React.FC = () => {
               } catch (error) {
                 console.error("Error sharing content:", error);
               }
-            }} 
-            variant="secondary" 
-            text="Share" 
-            startIcon={<ShareIcon />} 
+            }}
+            variant="secondary"
+            text="Share"
+            startIcon={<ShareIcon />}
           />
         </div>
 
         <div className="flex gap-4 flex-wrap">
           {filteredContents.length > 0 ? (
             filteredContents.map((content: Content) => (
-              <Card 
-                key={content._id} 
-                type={content.type} 
-                link={content.link} 
-                title={content.title} 
+              <Card
+                key={content._id}
+                type={content.type}
+                link={content.link}
+                title={content.title}
               />
             ))
           ) : (
