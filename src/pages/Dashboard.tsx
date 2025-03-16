@@ -9,13 +9,12 @@ import { useContent } from "../hooks/useContent";
 import axios from "axios";
 import { BACKEND_URL } from "../Config";
 
-// Define the content type based on your data structure
+
 interface Content {
   _id: string;
   type: string;
   link: string;
   title: string;
-  // ...other fields if needed
 }
 
 const Dashboard: React.FC = () => {
@@ -26,12 +25,9 @@ const Dashboard: React.FC = () => {
   useEffect(() => {
     refresh();
   }, [modelOpen]);
-
-  // Debug: log full contents and current filter
   console.log("All contents:", contents);
   console.log("Current filter:", filter);
 
-  // Filter the contents based on type (if a filter is set)
   const filteredContents: Content[] = filter
     ? contents.filter((content: Content) =>
         content.type.toLowerCase() === filter.toLowerCase()
@@ -77,7 +73,7 @@ const Dashboard: React.FC = () => {
           />
         </div>
 
-        <div className="flex gap-4 flex-wrap">
+        <div className="flex gap-4 flex-wrap p-4">
           {filteredContents.length > 0 ? (
             filteredContents.map((content: Content) => (
               <Card
