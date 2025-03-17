@@ -7,7 +7,7 @@ interface CardProps {
     type: "twitter" | "youtube";
     contentId: string;
     onDelete: (contentId: string) => void;
-    isShared?: boolean; // New prop to indicate if card is shared
+    isShared?: boolean; 
 }
 
 export function Card({ title, link, type, contentId, onDelete, isShared = false }: CardProps) {
@@ -20,9 +20,8 @@ export function Card({ title, link, type, contentId, onDelete, isShared = false 
         }
     }, [type]);
 
-    // Handle delete click with conditional logic
     const handleDeleteClick = () => {
-        // Only execute the delete if the card is not shared
+
         if (!isShared) {
             onDelete(contentId);
         }
@@ -43,7 +42,7 @@ export function Card({ title, link, type, contentId, onDelete, isShared = false 
                            
                         </a>
                     </div>
-                    {/* Only show delete icon if not shared, or show disabled version if shared */}
+
                     <div 
                         className={`${isShared ? 'text-gray-300 cursor-not-allowed' : 'text-gray-500 hover:text-red-500 cursor-pointer'}`}
                         title={isShared ? "Cannot delete shared content" : "Delete content"}
