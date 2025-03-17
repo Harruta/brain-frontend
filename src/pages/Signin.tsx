@@ -30,8 +30,6 @@ export function Signin() {
             if (response.data.token) {
                 localStorage.setItem("token", response.data.token);
                 navigate("/dashboard");
-                
-                
             } else {
                 alert("Invalid credentials. Please try again.");
             }
@@ -44,19 +42,47 @@ export function Signin() {
     }
 
     return (
-        <div className="h-screen w-screen bg-gray-200 flex justify-center items-center">
-            <div className="bg-white rounded-xl min-w-48 p-6">
-                <Input ref={usernameRef} placeholder="Username" />
-                <Input ref={passwordRef} placeholder="Password" type="password" />
-                <div className="flex justify-center mt-4">
+        <div className="h-screen w-screen bg-blue-100 flex justify-center items-center">
+            <div className="bg-white shadow-xl rounded-xl w-96 p-6 flex flex-col items-center">
+                <h1 className="text-2xl font-bold text-blue-600 mb-2">Welcome Back</h1>
+                <p className="text-gray-600 text-center mb-6">Sign in to your Brainly account</p>
+
+                {/* Centered Inputs */}
+                <div className="w-full flex flex-col items-center space-y-4">
+                    <Input 
+                        ref={usernameRef} 
+                        placeholder="Username" 
+                        className="w-4/5" 
+                    />
+                    <Input 
+                        ref={passwordRef} 
+                        type="password" 
+                        placeholder="Password" 
+                        className="w-4/5" 
+                    />
+                </div>
+
+                {/* Signin Button */}
+                <div className="w-4/5 mt-6">
                     <Button 
                         loading={loading} 
                         variant="primary" 
-                        text="Signin"
+                        text="Sign In"
                         fullWidth 
                         onClick={signin}
                     />
                 </div>
+
+                {/* Sign Up Redirect */}
+                <p className="text-gray-600 text-center mt-4">
+                    Don't have an account? 
+                    <span 
+                        className="text-blue-500 cursor-pointer hover:underline"
+                        onClick={() => navigate("/signup")}
+                    >
+                        {" "}Sign up
+                    </span>
+                </p>
             </div>
         </div>
     );

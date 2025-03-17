@@ -1,38 +1,72 @@
 import { TwitterIcon } from "../icons/TwitteIcon";
 import { YoutubeIcon } from "../icons/YoutubeIcon";
+import { useState } from "react";
+import { Logo } from "../icons/Logo";
 
 export interface SidebarProps {
   onFilterChange: (filter: string | null) => void;
 }
 
 export function Sidebar({ onFilterChange }: SidebarProps) {
+  const [activeFilter, setActiveFilter] = useState<string | null>(null);
+
+  const handleFilterClick = (filter: string | null) => {
+    setActiveFilter(filter);
+    onFilterChange(filter);
+  };
+  
   return (
-    <div className="h-screen bg-white w-72 fixed left-0 top-0 pl-6 pt-6">
-      <div className="flex items-center text-2xl font-bold pl-2 space-x-2">
-        <span className="ml-[-4px]">Brainly</span>
+    <div className="h-screen bg-white w-72 fixed left-0 top-0 shadow-lg flex flex-col">
+      {/* Header */}
+      <div className="p-6 border-b">
+        <div className="flex items-center">
+          <Logo className="w-8 h-8 text-blue-600 mr-2" />
+          <span className="text-blue-600 text-2xl font-bold">Brainly</span>
+        </div>
       </div>
-      <div className="pt-6">
-        {/* "All" resets the filter */}
-        <button 
-          onClick={() => onFilterChange(null)} 
-          className="block p-2 text-lg hover:bg-gray-100"
-        >
-          All
-        </button>
-        <button 
-          onClick={() => onFilterChange("twitter")} 
-          className="block p-2 text-lg flex items-center hover:bg-gray-100"
-        >
-          <TwitterIcon />
-          <span className="ml-2">Twitter</span>
-        </button>
-        <button 
-          onClick={() => onFilterChange("youtube")} 
-          className="block p-2 text-lg flex items-center hover:bg-gray-100"
-        >
-          <YoutubeIcon />
-          <span className="ml-2">YouTube</span>
-        </button>
+      
+      {/* Navigation */}
+      <div className="flex-1 pt-4 px-2">
+        <h3 className="text-gray-500 text-sm font-medium px-4 mb-2">CONTENT FILTERS</h3>
+        
+        <div className="space-y-1">
+          <button 
+            onClick={() => handleFilterClick(null)} 
+            className={`w-full flex items-center px-4 py-3 rounded-lg text-left transition-colors ${
+              activeFilter === null ? 'bg-blue-50 text-blue-600' : 'hover:bg-gray-100'
+            }`}
+          >
+            <span className="font-medium">All Content</span>
+          </button>
+          
+          <button 
+            onClick={() => handleFilterClick("twitter")} 
+            className={`w-full flex items-center px-4 py-3 rounded-lg text-left transition-colors ${
+              activeFilter === "twitter" ? 'bg-blue-50 text-blue-600' : 'hover:bg-gray-100'
+            }`}
+          >
+            <TwitterIcon className={activeFilter === "twitter" ? "text-blue-600" : ""} />
+            <span className="ml-3 font-medium">Twitter</span>
+          </button>
+          
+          <button 
+            onClick={() => handleFilterClick("youtube")} 
+            className={`w-full flex items-center px-4 py-3 rounded-lg text-left transition-colors ${
+              activeFilter === "youtube" ? 'bg-blue-50 text-blue-600' : 'hover:bg-gray-100'
+            }`}
+          >
+            <YoutubeIcon className={activeFilter === "youtube" ? "text-blue-600" : ""} />
+            <span className="ml-3 font-medium">YouTube</span>
+          </button>
+        </div>
+      </div>
+      
+      {/* Footer */}
+      <div className="p-4 border-t mt-auto">
+        <div className="flex items-center justify-between text-gray-500 text-sm">
+          <a href="#" className="hover:text-blue-600">Help</a>
+          <a href="#" className="hover:text-blue-600">Settings</a>
+        </div>
       </div>
     </div>
   );

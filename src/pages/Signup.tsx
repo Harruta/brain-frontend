@@ -1,3 +1,4 @@
+"Use State";
 import axios from "axios";
 import { useState, useRef } from "react";
 import { Input } from "../components/Input";
@@ -12,7 +13,7 @@ export function Signup() {
     const navigate = useNavigate();
 
     async function signup() {
-        if (loading) return; // Prevent duplicate requests
+        if (loading) return;
         setLoading(true);
 
         try {
@@ -38,19 +39,47 @@ export function Signup() {
     }
 
     return (
-        <div className="h-screen w-screen bg-gray-200 flex justify-center items-center">
-            <div className="bg-white rounded-xl min-w-48 p-6">
-                <Input ref={usernameRef} placeholder="Username" />
-                <Input ref={passwordRef} placeholder="Password" />
-                <div className="flex justify-center mt-4">
+        <div className="h-screen w-screen bg-blue-100 flex justify-center items-center">
+            <div className="bg-white shadow-xl rounded-xl w-96 p-6 flex flex-col items-center">
+                <h1 className="text-2xl font-bold text-blue-600 mb-2">Welcome to Brainly</h1>
+                <p className="text-gray-600 text-center mb-6">Create an account to get started</p>
+
+                {/* Centered Inputs */}
+                <div className="w-full flex flex-col items-center space-y-4">
+                    <Input 
+                        ref={usernameRef} 
+                        placeholder="Username" 
+                        className="w-4/5" 
+                    />
+                    <Input 
+                        ref={passwordRef} 
+                        type="password" 
+                        placeholder="Password" 
+                        className="w-4/5" 
+                    />
+                </div>
+
+                {/* Signup Button */}
+                <div className="w-4/5 mt-6">
                     <Button 
                         loading={loading} 
                         variant="primary" 
-                        text="Signup"
+                        text="Sign Up"
                         fullWidth 
                         onClick={signup}
                     />
                 </div>
+
+                {/* Sign In Redirect */}
+                <p className="text-gray-600 text-center mt-4">
+                    Already have an account? 
+                    <span 
+                        className="text-blue-500 cursor-pointer hover:underline"
+                        onClick={() => navigate("/signin")}
+                    >
+                        {" "}Sign in
+                    </span>
+                </p>
             </div>
         </div>
     );
