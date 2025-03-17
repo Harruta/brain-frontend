@@ -7,9 +7,10 @@ interface CardProps {
     type: "twitter" | "youtube";
     contentId: string;
     onDelete: (contentId: string) => void;
+    isShared?: boolean; // New prop to indicate if card is shared
 }
 
-export function Card({ title, link, type, contentId, onDelete }: CardProps) {
+export function Card({ title, link, type, contentId, onDelete, isShared = false }: CardProps) {
     useEffect(() => {
         if (type === "twitter") {
             const script = document.createElement("script");
@@ -18,6 +19,14 @@ export function Card({ title, link, type, contentId, onDelete }: CardProps) {
             document.body.appendChild(script);
         }
     }, [type]);
+
+    // Handle delete click with conditional logic
+    const handleDeleteClick = () => {
+        // Only execute the delete if the card is not shared
+        if (!isShared) {
+            onDelete(contentId);
+        }
+    };
 
     return (
         <div className="p-4 bg-white rounded-md border-gray-200 border w-fit self-start">
@@ -34,8 +43,15 @@ export function Card({ title, link, type, contentId, onDelete }: CardProps) {
                            
                         </a>
                     </div>
-                    <div className="text-gray-500 hover:text-red-500 cursor-pointer">
-                        <DeleteIcon contentId={contentId} onDelete={onDelete} />
+                    {/* Only show delete icon if not shared, or show disabled version if shared */}
+                    <div 
+                        className={`${isShared ? 'text-gray-300 cursor-not-allowed' : 'text-gray-500 hover:text-red-500 cursor-pointer'}`}
+                        title={isShared ? "Cannot delete shared content" : "Delete content"}
+                    >
+                        <DeleteIcon 
+                            contentId={contentId} 
+                            onDelete={handleDeleteClick} 
+                        />
                     </div>
                 </div>
             </div>
