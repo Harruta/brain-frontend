@@ -10,7 +10,12 @@ enum ContentType {
     Youtube = "youtube",
 }
 
-export function CreateContentModel({ open, onClose }) {
+interface CreateContentModelProps {
+    open: boolean;
+    onClose: () => void;
+}
+
+export function CreateContentModel({ open, onClose }: CreateContentModelProps) {
     const titleRef = useRef<HTMLInputElement>(null);
     const linkRef = useRef<HTMLInputElement>(null);
     const [type, setType] = useState<ContentType>(ContentType.Twitter);
@@ -77,7 +82,11 @@ export function CreateContentModel({ open, onClose }) {
     );
 }
 
-const Input = React.forwardRef(({ placeholder }, ref) => (
+interface InputProps {
+    placeholder: string;
+}
+
+const Input = React.forwardRef<HTMLInputElement, InputProps>(({ placeholder }, ref) => (
     <div>
         <input ref={ref} placeholder={placeholder} type="text" className="px-4 py-2 border rounded m-2" />
     </div>

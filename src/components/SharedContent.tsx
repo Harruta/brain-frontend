@@ -1,4 +1,4 @@
-import { Card } from "./card";
+import { Card } from "./Card";
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { BACKEND_URL } from "../Config";
@@ -47,11 +47,19 @@ const SharedContent = () => {
     <div className="p-4 min-h-screen bg-gray-100">
       <h1 className="text-xl font-bold mb-4">Shared Content</h1>
       <div className="flex gap-4 flex-wrap">
-        {content.map(({ type, link, title }, index) => (
-          <Card key={index} type={type} link={link} title={title} />
-        ))}
-      </div>
-    </div>
+      {content.map(({ type, link, title, id }, index) => (
+  <Card 
+    key={index} 
+    type={type} 
+    link={link} 
+    title={title} 
+    contentId={id}  
+    onDelete={() => console.log(`Delete ${id}`)} 
+  />
+))}
+
+  </div>
+  </div>
   );
 };
 

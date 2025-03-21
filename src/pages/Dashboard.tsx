@@ -1,7 +1,7 @@
 import { Button } from "../components/Button";
 import { useEffect, useState } from "react";
 import { CreateContentModel } from "../components/CreateContentModel";
-import { Card } from "../components/card";
+import { Card } from "../components/Card";
 import { PlusIcon } from "../icons/Pluesicon";
 import { ShareIcon } from "../icons/ShareIcon";
 import { Sidebar } from "../components/sidebar";

@@ -78,3 +78,4 @@ export function Card({ title, link, type, contentId, onDelete, isShared = false 
         </div>
     );
 }
+
