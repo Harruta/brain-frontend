@@ -1,16 +1,15 @@
 import { forwardRef } from "react";
 
-export const Input = forwardRef<HTMLInputElement, { placeholder?: string }>(
-    ({ placeholder }, ref) => {
+interface InputProps extends React.InputHTMLAttributes<HTMLInputElement> {}
+
+export const Input = forwardRef<HTMLInputElement, InputProps>(
+    ({ className = "", ...props }, ref) => {
         return (
-            <div>
-                <input
-                    placeholder={placeholder}
-                    type="text"
-                    className="px-4 py-2 border rounded m-2"
-                    ref={ref || undefined} 
-                />
-            </div>
+            <input
+                ref={ref}
+                className={`px-4 py-2 border rounded m-2 ${className}`}
+                {...props} 
+            />
         );
     }
 );

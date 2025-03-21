@@ -35,7 +35,6 @@ export function Signin() {
             }
         } catch (error) {
             console.error("Signin error:", error);
-            alert(error.response?.data?.message || "Signin failed!");
         } finally {
             setLoading(false);
         }
